@@ -21,15 +21,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_location);
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
-        naverMapBasicSettings();
-    }
-
-    public void naverMapBasicSettings() {
         mapView.getMapAsync(this);
     }
 
+    @UiThread
     @Override
-    public void onMapReady(@NonNull final NaverMap naverMap) {
+    public void onMapReady(@NonNull NaverMap naverMap) {
 
     }
 
