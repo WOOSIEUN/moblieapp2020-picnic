@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>축제</item>
+        <item>문화재</item>
+        <item>관광명소</item>
+    </string-array>
+</resources>
