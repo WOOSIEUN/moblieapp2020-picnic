@@ -1,0 +1,71 @@
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class ApiExplorer {
+
+    // tag값의 정보를 가져오는 메소드
+	private static String getTagValue(String tag, Element eElement) {
+	    NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+	    Node nValue = (Node) nlList.item(0);
+	    if(nValue == null) 
+	        return null;
+	    return nValue.getNodeValue();
+	}
+
+	public static void main(String[] args) {
+		int page = 1;	// 페이지 초기값 
+		try{
+			while(true){
+				// parsing할 url 지정(API 키 포함해서)
+				String url = "http://api.data.go.kr/openapi/tn_pubr_public_cltur_fstvl_api?ServiceKey=gsjKp5IjStX8lMcA8%2BMWpEXSB00etOkWuRsrKRYKaWQm4%2BF7Cr%2Fa%2B1w5eRG2T61WtzSo1CbtPSvxGqL5zaQrpQ%3D%3D&numOfRows=100&type=xml&pageNo="+page;
+				
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				
+				// root tag 
+				doc.getDocumentElement().normalize();
+				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+				
+				// 파싱할 tag
+				NodeList nList = doc.getElementsByTagName("item");
+				//System.out.println("파싱할 리스트 수 : "+ nList.getLength());
+				
+				for(int temp = 0; temp < nList.getLength(); temp++){
+					Node nNode = nList.item(temp);
+					if(nNode.getNodeType() == Node.ELEMENT_NODE){
+						
+						Element eElement = (Element) nNode;
+						System.out.println("######################");
+						//System.out.println(eElement.getTextContent());
+						System.out.println("축제명  : " + getTagValue("fstvlNm", eElement));
+						System.out.println("장소  : " + getTagValue("opar", eElement));
+						System.out.println("시작날짜  : " + getTagValue("fstvlStartDate", eElement));
+						System.out.println("끝날짜  : " + getTagValue("fstvlEndDate", eElement));
+						System.out.println("내용  : " + getTagValue("fstvlCo", eElement));
+						System.out.println("주관기관  : " + getTagValue("mnnst", eElement));
+						System.out.println("도로명주소  : " + getTagValue("rdnmadr", eElement));
+						System.out.println("지번주소  : " + getTagValue("lnmadr", eElement));
+						System.out.println("위도  : " + getTagValue("latitude", eElement));
+						System.out.println("경도  : " + getTagValue("longitude", eElement));
+					}	// for end
+				}	// if end
+				
+				page += 1;
+				System.out.println("page number : "+page);
+				if(page > 11){	
+					break;
+				}
+			}	// while end
+			
+		} catch (Exception e){	
+			e.printStackTrace();
+		}	// try~catch end
+	}	// main end
+}	// class end
+
