@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.Manifest;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.naver.maps.geometry.LatLng;
@@ -23,6 +24,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private MapView mapView;
     private FusedLocationSource locationSource;
+    private LocationManager locationManager;
     private NaverMap naverMap;
     private String[] PERMISSION = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -43,6 +45,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
         //위치 반환 구현체
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
     }
 
     @Override
