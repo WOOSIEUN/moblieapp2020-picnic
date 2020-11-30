@@ -12,10 +12,10 @@ public class DBConnect {
 	
 	//미리 생성해 둔 AWS RDS DB 인스턴스에 연결
 	String driver = "com.mysql.cj.jdbc.Driver";
-	String dbURL = "jdbc:mysql://moappdb.co0p7vaxsheo.us-east-2.rds.amazonaws.com/";
+	String dbURL = "jdbc:mysql://moappdb.co0p7vaxsheo.us-east-2.rds.amazonaws.com:3306/";
 	String dbName = "MoApp";
 	String user = "admin";
-	String pass = ""; //commit시 해당부분 항상 삭제할 것 
+	String pass = "dlgud123"; //commit시 해당부분 항상 삭제할 것 
 	
 	
 	private static DBConnect instance = new DBConnect();
@@ -24,20 +24,27 @@ public class DBConnect {
 		return instance;
 	}
 	
-	public String DBConnect_SQL(String DBTable, String modeStr, String latitudeStr, String longitudeStr) {
-				
+	public DBConnect() {
+
+	}
+	
+	public String DBConnect_SQL(String DBTable, String modeStr, String latitudeStr, String longitudeStr, String idStr) {
+		if(DBTable == null || modeStr == null || latitudeStr == null || longitudeStr == null || idStr == null) {
+			return null;
+		}
 		try {
 			int mode = Integer.parseInt(modeStr);
 			Double latitude = Double.valueOf(latitudeStr);
 			Double longitude = Double.valueOf(longitudeStr);
+			int id = Integer.parseInt(idStr);
 			//Connect
-			Class.forName(driver); 						
+			Class.forName("com.mysql.jdbc.Driver"); 						
 			conn = DriverManager.getConnection(dbURL+dbName, user, pass);
 			System.out.println("Connection Success");
 			
 			//SQL문 설정
 			if (mode == 1) { //사용자 위치기반 검색
-				sql = "SELECT id, latitude, longitude FROM" + DBTable + "WHERE latitude <= " + (latitude + dist) + " AND latitude >= " + (latitude - dist) + " AND longitude >= " + (longitude - dist) + " AND longitude <= " + (longitude + dist) + ";";
+				sql = "SELECT id, latitude, longitude FROM " + DBTable + " WHERE latitude <= " + (double)(latitude + dist) + " AND latitude >= " + (double)(latitude - dist) + " AND longitude >= " + (double)(longitude - dist) + " AND longitude <= " + (double)(longitude + dist) + ";";
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
@@ -45,11 +52,13 @@ public class DBConnect {
 				}
 				
 			} else if (mode == 2) {
-				//쿼리문 작성
+				sql = "SELECT id, latitude, longitude FROM " + DBTable + " WHERE id = "+ id + ";";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
 				//각 테이블에 맞게 데이터 가져오기
 				if (DBTable.equals("FESTIVAL")) {
 					while(rs.next()){
-						
+						returnString += rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3) + "#";
 					}	
 				} else if (DBTable.equals("TOUR")) {					
 										

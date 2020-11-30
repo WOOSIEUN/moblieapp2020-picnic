@@ -7,8 +7,9 @@
 	String mode = request.getParameter("mode");
 	String latitude = request.getParameter("latitude");
 	String longitude = request.getParameter("longitude");
+	String id = request.getParameter("id");
 	DBConnect connect = DBConnect.getInstance();
-	String returnStr = connect.DBConnect_SQL(DBTable, mode, latitude, longitude);
+	String returnStr = connect.DBConnect_SQL(DBTable, mode, latitude, longitude, id);
 	out.println(returnStr);
 	System.out.println(returnStr);
 %>
