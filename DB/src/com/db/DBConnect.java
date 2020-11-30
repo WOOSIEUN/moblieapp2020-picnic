@@ -1,7 +1,6 @@
 package com.db;
 
 import java.sql.*;
-import java.text.*;
 
 public class DBConnect {
 	Connection conn = null;
@@ -25,9 +24,12 @@ public class DBConnect {
 		return instance;
 	}
 	
-	public String DBConnect_SQL(String DBTable, int mode, Double latitude, Double longitude) {
-		
+	public String DBConnect_SQL(String DBTable, String modeStr, String latitudeStr, String longitudeStr) {
+				
 		try {
+			int mode = Integer.parseInt(modeStr);
+			Double latitude = Double.valueOf(latitudeStr);
+			Double longitude = Double.valueOf(longitudeStr);
 			//Connect
 			Class.forName(driver); 						
 			conn = DriverManager.getConnection(dbURL+dbName, user, pass);
@@ -63,7 +65,10 @@ public class DBConnect {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		} finally {
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+        } finally {
 			if (pstmt != null) {
 				try {pstmt.close();}
 				catch (SQLException ex) {}

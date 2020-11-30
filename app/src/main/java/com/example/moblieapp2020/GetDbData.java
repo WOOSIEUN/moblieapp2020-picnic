@@ -1,8 +1,6 @@
 package com.example.moblieapp2020;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import android.os.AsyncTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,15 +12,16 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class GetDbData extends AppCompatActivity {
+public class GetDbData extends AsyncTask<String, Void, String> {
     String sendMsg, recvMsg;
 
-    protected String doInBackGround(String... strings) {
+    @Override
+    protected String doInBackground(String... strings) {
         try {
-            URL url = new URL("http://ocalhost/:8080/DB/Android/androidDB.jsp");
+            URL url = new URL("http://localhost:8080/DB/androidDB.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
 
             //파라미터 전달
             OutputStreamWriter outputStream = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
