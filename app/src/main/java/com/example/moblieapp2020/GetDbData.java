@@ -19,16 +19,16 @@ public class GetDbData extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url = new URL("http://localhost:8080/DB/androidDB.jsp");
+            URL url = new URL("http://***************본인 IP 주소 넣고 포트 포워딩 필수******************:8080/DB/androidDB.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             Log.d("Connection","DB Connection Success");
-            Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[2]);
+            Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3]);
 
             //파라미터 전달
             OutputStreamWriter outputStream = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-            sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[2];
+            sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3] + "&id=" + strings[4];
             outputStream.write(sendMsg);
             outputStream.flush();
             Log.d("Connection","Send msg to Server Success");

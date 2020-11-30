@@ -88,7 +88,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             userLocation = locationSource.getLastLocation();
             Log.d("userLocation","lat : " + userLocation.getLatitude() + " | lon : " + userLocation.getLongitude());
             GetDbData getData = new GetDbData();
-            String result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude())).get();
+            String result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()),"0").get();
             String[] splitedStr = result.split("#");
             int next = 0;
             while(next <= splitedStr.length) {
