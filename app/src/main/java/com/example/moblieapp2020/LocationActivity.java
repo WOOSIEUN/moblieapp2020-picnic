@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationSource;
@@ -22,7 +23,9 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.util.MarkerIcons;
 import com.naver.maps.map.widget.LocationButtonView;
 
 import java.util.concurrent.ExecutionException;
@@ -37,13 +40,16 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
+    private Marker marker;
+    private String[] splitedStr;
+    private int next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+        MapFragment mapFragment = (MapFragment) fm.findFragmentById(R.id.map);
         if (mapFragment == null) {
             mapFragment = MapFragment.newInstance();
             fm.beginTransaction().add(R.id.map, mapFragment).commit();
@@ -52,11 +58,11 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
         //위치 반환 구현체
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,  @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
             if (!locationSource.isActivated()) { // 권한 거부됨
                 thisNaverMap.setLocationTrackingMode(LocationTrackingMode.Face);
@@ -81,24 +87,117 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         locationButtonView.setMap(thisNaverMap);
     }
 
-    public void setLocation(View view) throws ExecutionException, InterruptedException {
-        Location userLocation = null;
+    public void searchFestival(View view) {
+        if (locationSource.isActivated()) {
+            new Thread() {
+                public void run() {
+                    Location userLocation = locationSource.getLastLocation();
+                    Log.d("userLocation", "lat : " + userLocation.getLatitude() + " | lon : " + userLocation.getLongitude());
+                    GetDbData getData = new GetDbData();
+                    String result = null;
+                    try {
+                        result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    splitedStr = result.split("#");
+                    Log.d("Marker", "splitedStr length : " + splitedStr.length);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            next = 0;
+                            while (next + 3 <= splitedStr.length) {
+                                marker = new Marker();
+                                marker.setIcon(MarkerIcons.PINK);
+                                marker.setCaptionText(splitedStr[next + 1]);
+                                marker.setPosition(new LatLng(Double.parseDouble(splitedStr[next + 2]), Double.parseDouble(splitedStr[next + 3])));
+                                marker.setMap(thisNaverMap);
+                                next = next + 4;
+                            }
+                        }
+                    });
+                }
+            }.start();
+        } else {
+            Log.d("userLocation", "None");
+        }
+    }
 
-        if(locationSource.isActivated()){
-            userLocation = locationSource.getLastLocation();
-            Log.d("userLocation","lat : " + userLocation.getLatitude() + " | lon : " + userLocation.getLongitude());
-            GetDbData getData = new GetDbData();
-            String result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()),"0").get();
-            String[] splitedStr = result.split("#");
-            int next = 0;
-            while(next <= splitedStr.length) {
-                Marker marker = new Marker();
-                marker.setPosition(new LatLng(Double.valueOf(splitedStr[next+1]), Double.valueOf(splitedStr[next+2])));
-                marker.setMap(thisNaverMap);
-                next = next + 2;
-            }
-        } else{
-            Log.d("userLocation","None");
+    public void searchTour(View view) {
+        if (locationSource.isActivated()) {
+            new Thread() {
+                public void run() {
+                    Location userLocation = locationSource.getLastLocation();
+                    Log.d("userLocation", "lat : " + userLocation.getLatitude() + " | lon : " + userLocation.getLongitude());
+                    GetDbData getData = new GetDbData();
+                    String result = null;
+                    try {
+                        result = getData.execute("TOUR", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    splitedStr = result.split("#");
+                    Log.d("Marker", "splitedStr length : " + splitedStr.length);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            next = 0;
+                            while (next + 3 <= splitedStr.length) {
+                                marker = new Marker();
+                                marker.setIcon(MarkerIcons.LIGHTBLUE);
+                                marker.setCaptionText(splitedStr[next + 1]);
+                                marker.setPosition(new LatLng(Double.parseDouble(splitedStr[next + 2]), Double.parseDouble(splitedStr[next + 3])));
+                                marker.setMap(thisNaverMap);
+                                next = next + 4;
+                            }
+                        }
+                    });
+                }
+            }.start();
+        } else {
+            Log.d("userLocation", "None");
+        }
+    }
+
+    public void searchHeritage(View view) {
+        if (locationSource.isActivated()) {
+            new Thread() {
+                public void run() {
+                    Location userLocation = locationSource.getLastLocation();
+                    Log.d("userLocation", "lat : " + userLocation.getLatitude() + " | lon : " + userLocation.getLongitude());
+                    GetDbData getData = new GetDbData();
+                    String result = null;
+                    try {
+                        result = getData.execute("HERITAGE", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    splitedStr = result.split("#");
+                    Log.d("Marker", "splitedStr length : " + splitedStr.length);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            next = 0;
+                            while (next + 3 <= splitedStr.length) {
+                                marker = new Marker();
+                                marker.setIcon(MarkerIcons.YELLOW);
+                                marker.setCaptionText(splitedStr[next + 1]);
+                                marker.setPosition(new LatLng(Double.parseDouble(splitedStr[next + 2]), Double.parseDouble(splitedStr[next + 3])));
+                                marker.setMap(thisNaverMap);
+                                next = next + 4;
+                            }
+                        }
+                    });
+                }
+            }.start();
+        } else {
+            Log.d("userLocation", "None");
         }
     }
 }

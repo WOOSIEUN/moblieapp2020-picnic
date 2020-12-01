@@ -19,7 +19,7 @@ public class GetDbData extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url = new URL("http://***************본인 IP 주소 넣고 포트 포워딩 필수******************:8080/DB/androidDB.jsp");
+            URL url = new URL("http://27.35.110.60:8080/DB/androidDB.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
