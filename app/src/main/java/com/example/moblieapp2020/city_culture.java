@@ -1,24 +1,21 @@
 package com.example.moblieapp2020;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class city_culture extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_city_culture);
     }
 
-    public void onClickButton(View view) {
-        Intent intent1 = new Intent(MainActivity.this , LocationActivity.class);
-        startActivity(intent1);
-    }
     public void onClickButton1(View view) {
-        Intent intent1 = new Intent(MainActivity.this , ChoiceActivity.class);
+        Intent intent1 = new Intent(city_culture.this , CityList.class);
         startActivity(intent1);
     }
 }

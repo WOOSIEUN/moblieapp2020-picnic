@@ -38,7 +38,7 @@ public class DBConnect {
 			Double longitude = Double.valueOf(longitudeStr);
 			int id = Integer.parseInt(idStr);
 			//Connect
-			Class.forName("com.mysql.jdbc.Driver"); 						
+			Class.forName("com.mysql.cj.jdbc.Driver"); 						
 			conn = DriverManager.getConnection(dbURL+dbName, user, pass);
 			System.out.println("Connection Success");
 			
@@ -52,6 +52,7 @@ public class DBConnect {
 				} else if (DBTable.equals("HERITAGE")) {	
 					sql = "SELECT id, ccbaMnm1, latitude, longitude FROM " + DBTable + " WHERE latitude <= " + (double)(latitude + dist) + " AND latitude >= " + (double)(latitude - dist) + " AND longitude >= " + (double)(longitude - dist) + " AND longitude <= " + (double)(longitude + dist) + ";";			
 				}				
+				System.out.println(sql);
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				returnString = null;
