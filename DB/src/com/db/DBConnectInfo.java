@@ -2,7 +2,7 @@ package com.db;
 
 import java.sql.*;
 
-public class DBConnect {
+public class DBConnectInfo {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -17,23 +17,22 @@ public class DBConnect {
 	String user = "admin";
 	String pass = "dlgud123"; // commit�� �ش�κ� �׻� ������ ��
 
-	private static DBConnect instance = new DBConnect();
+	private static DBConnectInfo instance = new DBConnectInfo();
 
-	public static DBConnect getInstance() {
+	public static DBConnectInfo getInstance() {
 		return instance;
 	}
 
-	public DBConnect() {
+	public DBConnectInfo() {
 
 	}
 
-	public String DBConnect_SQL(String DBTable, String modeStr, String latitudeStr, String longitudeStr) {
-		if (DBTable == null || modeStr == null || latitudeStr == null || longitudeStr == null) {
+	public String DBConnect_SQL(String DBTable, String modeStr, String idStr) {
+		if (DBTable == null || modeStr == null || idStr == null) {
 			return null;
 		}
 		try {
-			Double latitude = Double.valueOf(latitudeStr);
-			Double longitude = Double.valueOf(longitudeStr);
+			int id = Integer.parseInt(idStr);
 			// Connect
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL + dbName, user, pass);
@@ -41,29 +40,29 @@ public class DBConnect {
 
 			// SQL�� ����
 
+			// �� ���̺� �°� ������ ����
 			if (DBTable.equals("FESTIVAL")) {
-				sql = "SELECT id, fstvlNm, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT fstvlNm, opar, fstvlStartDate, fstvlEndDate, fstvlCo, rdnmadr FROM " + DBTable
+						+ " WHERE id = " + id + ";";
 			} else if (DBTable.equals("TOUR")) {
-				sql = "SELECT id, trrsrtNm, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT trrsrtNm, trrsrtIntrcn, institutionNm, rdnmadr FROM " + DBTable + " WHERE id = " + id
+						+ ";";
 			} else if (DBTable.equals("HERITAGE")) {
-				sql = "SELECT id, ccbaMnm1, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT ccbaMnm1, ccmaName, ccbaLcad, ccceName, content, imageUrl FROM " + DBTable
+						+ " WHERE id = " + id + ";";
 			}
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			returnString = "";
 			while (rs.next()) {
-				returnString += rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3) + "#" + rs.getString(4)
-						+ "#";
+				if (DBTable.equals("FESTIVAL") || DBTable.equals("HERITAGE"))
+					returnString += rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3) + "#"
+							+ rs.getString(4) + "#" + rs.getString(5) + "#" + rs.getString(6) + "#";
+				else
+					returnString += rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3) + "#"
+							+ rs.getString(4) + "#";
+
 			}
 
 			// ------------ �ٸ� ��� �߰��� ���⿡ �߰� �ʿ� ---------------

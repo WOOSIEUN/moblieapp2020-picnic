@@ -24,11 +24,22 @@ public class GetDbData extends AsyncTask<String, Void, String> {
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
             Log.d("Connection","DB Connection Success");
-            Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3]);
+            if(strings[1].equals("1"))
+                Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3]);
+            else if(strings[1].equals("2"))
+                Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&location=" + strings[2]);
+            else if(strings[1].equals("3"))
+                Log.d("Connection","Data is DBTable=" + strings[0] + "&mode=" + strings[1] + "&id=" + strings[2]);
 
             //파라미터 전달
             OutputStreamWriter outputStream = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
-            sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3] + "&id=" + strings[4];
+            if(strings[1].equals("1"))
+                sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&latitude=" + strings[2] + "&longitude=" + strings[3];
+            else if(strings[1].equals("2"))
+                sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&location=" + strings[2];
+            else if(strings[1].equals("3"))
+                sendMsg = "DBTable=" + strings[0] + "&mode=" + strings[1] + "&id=" + strings[2];
+
             outputStream.write(sendMsg);
             outputStream.flush();
             Log.d("Connection","Send msg to Server Success");

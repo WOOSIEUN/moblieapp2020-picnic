@@ -96,7 +96,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     GetDbData getData = new GetDbData();
                     String result = null;
                     try {
-                        result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                        result = getData.execute("FESTIVAL", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude())).get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -134,7 +134,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     GetDbData getData = new GetDbData();
                     String result = null;
                     try {
-                        result = getData.execute("TOUR", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                        result = getData.execute("TOUR", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude())).get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -172,7 +172,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                     GetDbData getData = new GetDbData();
                     String result = null;
                     try {
-                        result = getData.execute("HERITAGE", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude()), "0").get();
+                        result = getData.execute("HERITAGE", "1", Double.toString(userLocation.getLatitude()), Double.toString(userLocation.getLongitude())).get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {

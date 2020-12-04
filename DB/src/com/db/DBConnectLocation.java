@@ -2,7 +2,7 @@ package com.db;
 
 import java.sql.*;
 
-public class DBConnect {
+public class DBConnectLocation {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -17,23 +17,21 @@ public class DBConnect {
 	String user = "admin";
 	String pass = "dlgud123"; // commit�� �ش�κ� �׻� ������ ��
 
-	private static DBConnect instance = new DBConnect();
+	private static DBConnectLocation instance = new DBConnectLocation();
 
-	public static DBConnect getInstance() {
+	public static DBConnectLocation getInstance() {
 		return instance;
 	}
 
-	public DBConnect() {
+	public DBConnectLocation() {
 
 	}
 
-	public String DBConnect_SQL(String DBTable, String modeStr, String latitudeStr, String longitudeStr) {
-		if (DBTable == null || modeStr == null || latitudeStr == null || longitudeStr == null) {
+	public String DBConnect_SQL(String DBTable, String modeStr, String location) {
+		if (DBTable == null || modeStr == null || location == null) {
 			return null;
 		}
 		try {
-			Double latitude = Double.valueOf(latitudeStr);
-			Double longitude = Double.valueOf(longitudeStr);
 			// Connect
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL + dbName, user, pass);
@@ -42,28 +40,18 @@ public class DBConnect {
 			// SQL�� ����
 
 			if (DBTable.equals("FESTIVAL")) {
-				sql = "SELECT id, fstvlNm, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT id, fstvlNm FROM " + DBTable + " WHERE rdnmadr LIKE '%" + location + "%';";
 			} else if (DBTable.equals("TOUR")) {
-				sql = "SELECT id, trrsrtNm, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT id, trrsrtNm FROM " + DBTable + " WHERE rdnmadr LIKE '%" + location + "%';";
 			} else if (DBTable.equals("HERITAGE")) {
-				sql = "SELECT id, ccbaMnm1, latitude, longitude FROM " + DBTable + " WHERE latitude <= "
-						+ (double) (latitude + dist) + " AND latitude >= " + (double) (latitude - dist)
-						+ " AND longitude >= " + (double) (longitude - dist) + " AND longitude <= "
-						+ (double) (longitude + dist) + ";";
+				sql = "SELECT id, ccbaMnm1 FROM " + DBTable + " WHERE ccbaCtcd = " + location + ";";
 			}
 			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			returnString = "";
 			while (rs.next()) {
-				returnString += rs.getString(1) + "#" + rs.getString(2) + "#" + rs.getString(3) + "#" + rs.getString(4)
-						+ "#";
+				returnString += rs.getString(1) + "#" + rs.getString(2) + "#";
 			}
 
 			// ------------ �ٸ� ��� �߰��� ���⿡ �߰� �ʿ� ---------------
