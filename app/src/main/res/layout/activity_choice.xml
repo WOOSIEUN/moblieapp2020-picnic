@@ -18,8 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/location"
+            android:layout_weight="1"
+            android:backgroundTint="#2196F3"
+            android:fontFamily="@font/recipekorea"
             android:onClick="Festival"
-            android:text="축제" />
+            android:text="축제"
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/searchTour"
@@ -27,8 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/searchFestival"
+            android:layout_weight="1"
+            android:backgroundTint="#00BCD4"
+            android:fontFamily="@font/recipekorea"
             android:onClick="Tour"
-            android:text="관광지" />
+            android:text="관광지"
+            android:textSize="17sp" />
 
         <Button
             android:id="@+id/searchHeritage"
@@ -36,8 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/searchTour"
+            android:layout_weight="1"
+            android:backgroundTint="#0ADCC8"
+            android:fontFamily="@font/recipekorea"
             android:onClick="Heritage"
-            android:text="문화재" />
+            android:text="문화재"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <ListView

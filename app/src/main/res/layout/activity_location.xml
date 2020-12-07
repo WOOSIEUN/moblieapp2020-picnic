@@ -23,27 +23,36 @@
         android:id="@+id/searchFestival"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="축제 검색하기"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/location"
-        android:onClick="searchFestival"/>
+        android:backgroundTint="#2196F3"
+        android:fontFamily="@font/recipekorea"
+        android:textSize="12sp"
+        android:onClick="searchFestival"
+        android:text="축제 검색하기" />
 
     <Button
         android:id="@+id/searchTour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="관광지 검색하기"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/searchFestival"
-        android:onClick="searchTour"/>
+        android:backgroundTint="#00BCD4"
+        android:fontFamily="@font/recipekorea"
+        android:textSize="12sp"
+        android:onClick="searchTour"
+        android:text="관광지 검색하기" />
 
     <Button
         android:id="@+id/searchHeritage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="문화재 검색하기"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/searchTour"
-        android:onClick="searchHeritage"/>
+        android:backgroundTint="#0ADCC8"
+        android:fontFamily="@font/recipekorea"
+        android:textSize="12sp"
+        android:onClick="searchHeritage"
+        android:text="문화재 검색하기" />
 
 </RelativeLayout>
