@@ -23,7 +23,7 @@
             android:fontFamily="@font/recipekorea"
             android:onClick="Festival"
             android:text="축제"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/searchTour"
@@ -36,7 +36,7 @@
             android:fontFamily="@font/recipekorea"
             android:onClick="Tour"
             android:text="관광지"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/searchHeritage"
@@ -45,11 +45,11 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/searchTour"
             android:layout_weight="1"
-            android:backgroundTint="#0ADCC8"
+            android:backgroundTint="#009688"
             android:fontFamily="@font/recipekorea"
             android:onClick="Heritage"
             android:text="문화재"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ListView
