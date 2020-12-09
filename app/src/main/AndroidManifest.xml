@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ChoiceActivity"></activity>
-        <activity android:name=".city_list_item" />
+        <activity android:name=".Heritage_item"></activity>
+        <activity android:name=".Tour_item" />
+        <activity android:name=".Festival_item" />
+        <activity android:name=".ChoiceActivity" />
         <activity android:name=".CityList" />
-        <activity android:name=".city_culture" />
-        <activity android:name=".type_culture" />
         <activity android:name=".LocationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

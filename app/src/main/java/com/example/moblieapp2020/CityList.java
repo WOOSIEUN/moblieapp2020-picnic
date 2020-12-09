@@ -4,29 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import java.util.ArrayList;
 
 public class CityList extends AppCompatActivity {
-    ArrayList<String> arraylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState) ;
         setContentView(R.layout.activity_city_list) ;
 
-        ArrayList<String> arraylist = new ArrayList<String>();
-        arraylist.add("가");
-        arraylist.add("나");
-        arraylist.add("다");
-        arraylist.add("라");
+        Intent intent = getIntent();
+        final ArrayList<String> ID = intent.getStringArrayListExtra("ID");;
+        final ArrayList<String> Name = intent.getStringArrayListExtra("Name");
+        final String mode = intent.getStringExtra("mode");
 
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arraylist) ;
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Name) ;
 
         ListView listview = (ListView) findViewById(R.id.listview1) ;
         listview.setAdapter(adapter) ;
@@ -35,16 +36,23 @@ public class CityList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 String strText = (String) parent.getItemAtPosition(position) ;
+                Intent intent1 = null;
 
-                Intent intent = new Intent(CityList.this, city_list_item.class);
-                intent.putExtra("image","");
-                intent.putExtra("type", "");
-                intent.putExtra("name","");
-                intent.putExtra("where", "");
-                intent.putExtra("date", "");
-                intent.putExtra("describe", "");
-
-                startActivity(intent);
+                if(mode.equals("Festival")){
+                    intent1 = new Intent(CityList.this, Festival_item.class);
+                    intent1.putExtra("ID", ID.get(position));
+                    startActivity(intent1);
+                }
+                else if(mode.equals("Tour")){
+                    intent1 = new Intent(CityList.this, Tour_item.class);
+                    intent1.putExtra("ID", ID.get(position));
+                    startActivity(intent1);
+                }
+                else if(mode.equals("Heritage")){
+                    intent1 = new Intent(CityList.this, Heritage_item.class);
+                    intent1.putExtra("ID", ID.get(position));
+                    startActivity(intent1);
+                }
             }
         }) ;
     }

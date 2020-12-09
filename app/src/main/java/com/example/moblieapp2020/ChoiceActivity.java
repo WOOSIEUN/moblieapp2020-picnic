@@ -17,6 +17,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.MarkerIcons;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 
 public class ChoiceActivity extends AppCompatActivity {
@@ -53,8 +54,23 @@ public class ChoiceActivity extends AppCompatActivity {
                     public void run() {
                         GetDbData getData = new GetDbData();
                         String result = null;
+                        ArrayList<String> ID = new ArrayList<String>();
+                        ArrayList<String> Name = new ArrayList<String>();
+                        int cnt = 1;
+
                         try {
                             result = getData.execute("FESTIVAL", "2", Location[pos]).get();
+                            StringTokenizer st = new StringTokenizer(result, "#");
+                            while(st.hasMoreTokens()){
+                                ID.add(st.nextToken());
+                                Name.add("["+cnt++ +"] "+st.nextToken());
+                            }
+                            Intent newIntent = new Intent(ChoiceActivity.this, CityList.class);
+                            newIntent.putExtra("ID", ID);
+                            newIntent.putExtra("Name", Name);
+                            newIntent.putExtra("mode", "Festival");
+                            startActivity(newIntent);
+
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -90,8 +106,23 @@ public class ChoiceActivity extends AppCompatActivity {
                     public void run() {
                         GetDbData getData = new GetDbData();
                         String result = null;
+                        ArrayList<String> ID = new ArrayList<String>();
+                        ArrayList<String> Name = new ArrayList<String>();
+                        int cnt = 1;
+
                         try {
                             result = getData.execute("TOUR", "2", Location[pos]).get();
+                            StringTokenizer st = new StringTokenizer(result, "#");
+                            while(st.hasMoreTokens()){
+                                ID.add(st.nextToken());
+                                Name.add("["+cnt++ +"] "+st.nextToken());
+                            }
+                            Intent newIntent = new Intent(ChoiceActivity.this, CityList.class);
+                            newIntent.putExtra("ID", ID);
+                            newIntent.putExtra("Name", Name);
+                            newIntent.putExtra("mode", "Tour");
+                            startActivity(newIntent);
+
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
@@ -127,8 +158,23 @@ public class ChoiceActivity extends AppCompatActivity {
                     public void run() {
                         GetDbData getData = new GetDbData();
                         String result = null;
+                        ArrayList<String> ID = new ArrayList<String>();
+                        ArrayList<String> Name = new ArrayList<String>();
+                        int cnt = 1;
+
                         try {
                             result = getData.execute("HERITAGE", "2", Location[pos]).get();
+                            StringTokenizer st = new StringTokenizer(result, "#");
+                            while(st.hasMoreTokens()){
+                                ID.add(st.nextToken());
+                                Name.add("["+cnt++ +"] "+st.nextToken());
+                            }
+                            Intent newIntent = new Intent(ChoiceActivity.this, CityList.class);
+                            newIntent.putExtra("ID", ID);
+                            newIntent.putExtra("Name", Name);
+                            newIntent.putExtra("mode", "Heritage");
+                            startActivity(newIntent);
+
                         } catch (ExecutionException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
