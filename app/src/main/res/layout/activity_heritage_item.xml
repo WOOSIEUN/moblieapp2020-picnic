@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2.5"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:background="@drawable/border"/>
 
     <TextView
@@ -21,7 +20,6 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:background="@drawable/border"
-        android:backgroundTint="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
 
