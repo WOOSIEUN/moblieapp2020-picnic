@@ -7,66 +7,83 @@
     android:orientation="vertical"
     tools:context=".Festival_item">
 
+
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:background="@drawable/border"/>
+        android:textAlignment="center"
+        android:fontFamily="@font/recipekorea"/>
 
     <TextView
         android:id="@+id/opar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="20sp"
+        android:layout_weight="0.5"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
         android:id="@+id/startdate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="20sp"
+        android:layout_weight="0.5"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
         android:id="@+id/enddate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="20sp"
+        android:layout_weight="0.5"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
         android:id="@+id/introduction"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:scrollbars="vertical"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="20sp"
+        android:layout_weight="0.5"
+        android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/move"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
+        android:backgroundTint="#2196F3"
         android:onClick="backBtn"
-        android:text="이전으로" />
+        android:fontFamily="@font/recipekorea"
+        android:text="◁ 이전으로" />
 </LinearLayout>

@@ -14,6 +14,7 @@
         android:layout_weight="1"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
@@ -24,6 +25,7 @@
         android:scrollbars="vertical"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
@@ -33,6 +35,7 @@
         android:layout_weight="1"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
 
     <TextView
@@ -42,14 +45,23 @@
         android:layout_weight="1"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/recipekorea"
         android:background="@drawable/border"/>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/move"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
+        android:backgroundTint="#2196F3"
         android:onClick="backBtn"
-        android:text="이전으로"
-        android:background="@drawable/border"/>
+        android:fontFamily="@font/recipekorea"
+        android:text="◁ 이전으로" />
 </LinearLayout>
