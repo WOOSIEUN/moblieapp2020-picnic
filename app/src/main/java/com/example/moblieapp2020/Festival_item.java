@@ -46,7 +46,7 @@ public class Festival_item extends AppCompatActivity {
                     TextView t5 = (TextView)findViewById(R.id.introduction);
                     TextView t6 = (TextView)findViewById(R.id.address);
 
-                    t1.setText("축제 이름 : " + name);
+                    t1.setText(name);//수정했습니다.
                     t2.setText("개최 장소 : " + opar);
                     t3.setText("시작 일 : " + start);
                     t4.setText("종료 일 : " + end);
