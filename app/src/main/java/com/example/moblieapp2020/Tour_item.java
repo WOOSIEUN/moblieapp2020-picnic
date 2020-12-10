@@ -30,7 +30,7 @@ public class Tour_item extends AppCompatActivity {
                 System.out.println("ID = " + ID);
 
                 try {
-                    result = getData.execute("Tour", "3", ID).get();
+                    result = getData.execute("TOUR", "3", ID).get();
                     StringTokenizer st = new StringTokenizer(result, "#");
                     String name = st.nextToken();
                     String inform = st.nextToken();
