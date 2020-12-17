@@ -55,6 +55,17 @@ public class Heritage_item extends AppCompatActivity {
                     String intro = st.nextToken();
                     url = st.nextToken();
 
+                    if(name.equals("null"))
+                        name = "제공되지 않는 정보입니다.";
+                    if(type.equals("null"))
+                        type = "제공되지 않는 정보입니다.";
+                    if(address.equals("null"))
+                        address = "제공되지 않는 정보입니다.";
+                    if(period.equals("null"))
+                        period = "제공되지 않는 정보입니다.";
+                    if(intro.equals("null"))
+                        intro = "제공되지 않는 정보입니다.";
+
                     image = (ImageView)findViewById(R.id.image);
                     TextView t1 = (TextView)findViewById(R.id.name);
                     TextView t2 = (TextView)findViewById(R.id.type);

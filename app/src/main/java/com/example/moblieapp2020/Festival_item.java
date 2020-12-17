@@ -39,6 +39,19 @@ public class Festival_item extends AppCompatActivity {
                     String inform = st.nextToken();
                     String address = st.nextToken();
 
+                    if(name.equals("null"))
+                        name = "제공되지 않는 정보입니다.";
+                    if(opar.equals("null"))
+                        opar = "제공되지 않는 정보입니다.";
+                    if(address.equals("null"))
+                        address = "제공되지 않는 정보입니다.";
+                    if(start.equals("null"))
+                        start = "제공되지 않는 정보입니다.";
+                    if(end.equals("null"))
+                        end = "제공되지 않는 정보입니다.";
+                    if(inform.equals("null"))
+                        inform = "제공되지 않는 정보입니다.";
+
                     TextView t1 = (TextView)findViewById(R.id.name);
                     TextView t2 = (TextView)findViewById(R.id.opar);
                     TextView t3 = (TextView)findViewById(R.id.startdate);
